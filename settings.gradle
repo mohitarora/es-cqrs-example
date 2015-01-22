@@ -1,2 +1,4 @@
 rootProject.name = 'es-cqrs-example'
 
+include 'cart-query-services'
+
