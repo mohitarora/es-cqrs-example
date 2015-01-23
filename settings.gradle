@@ -4,3 +4,5 @@ include 'cart-query-services'
 
 include 'cart-command-services'
 
+include 'security-services'
+
