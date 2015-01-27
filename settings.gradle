@@ -6,5 +6,5 @@ include 'cart-command-services'
 
 include 'security-services'
 
-include 'catalog-services'
+include 'catalog-query-services'
 
