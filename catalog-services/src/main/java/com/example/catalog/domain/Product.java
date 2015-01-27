@@ -1,7 +1,6 @@
 package com.example.catalog.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -9,7 +8,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = "products", type = "products", shards = 1, replicas = 0, refreshInterval = "-1")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
