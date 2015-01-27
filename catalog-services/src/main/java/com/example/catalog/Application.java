@@ -1,5 +1,6 @@
 package com.example.catalog;
 
+import com.example.catalog.domain.Product;
 import com.example.catalog.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +26,7 @@ public class Application implements CommandLineRunner {
      * Loads products into elasticsearch so that they can be retrieved
      */
     private void saveProducts() {
-        //productsRepository.findOne()
+        productsRepository.save(new Product("sku1","Test1","Test Short1","Test Long1",1.99));
+        productsRepository.save(new Product("sku2","Test2","Test Short2","Test Long2",2.99));
     }
 }
