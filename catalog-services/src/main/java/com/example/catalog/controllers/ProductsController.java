@@ -17,11 +17,20 @@ public class ProductsController {
     @Autowired
     private ProductsRepository productsRepository;
 
+    /**
+     * List All Products
+     * @return List of Products
+     */
     @RequestMapping
     public List<Product> products() {
         return Lists.newArrayList(productsRepository.findAll());
     }
 
+    /**
+     * Get Product Details
+     * @param id - SKU
+     * @return - Product details
+     */
     @RequestMapping(value = "/{id}")
     public Product product(@PathVariable String id) {
         return productsRepository.findOne(id);
