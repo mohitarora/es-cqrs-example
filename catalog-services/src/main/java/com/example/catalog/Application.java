@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
     private void saveProducts() {
         // Remove all documents
         productsRepository.deleteAll();
-        productsRepository.save(new Product("sku1","Test1","Test Short1","Test Long1",1.99));
-        productsRepository.save(new Product("sku2","Test2","Test Short2","Test Long2",2.99));
+        productsRepository.save(new Product("sku1", "Test1", "Test Short1", "Test Long1", 1.99));
+        productsRepository.save(new Product("sku2", "Test2", "Test Short2", "Test Long2", 2.99));
     }
 }
