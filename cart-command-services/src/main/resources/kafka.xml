@@ -47,9 +47,7 @@
         <int-kafka:producer-configurations>
             <int-kafka:producer-configuration broker-list="localhost:9092"
                                               topic="*"
-                                              compression-codec="default"
-                                              value-encoder="kafkaEncoder"
-                                              key-encoder="kafkaEncoder"/>
+                                              compression-codec="default"/>
         </int-kafka:producer-configurations>
     </int-kafka:producer-context>
 
