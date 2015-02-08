@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.integration:spring-integration-kafka:1.0.0.RC1")
+    compile("org.springframework.integration:spring-integration-kafka:1.0.0.RC1") {
+        exclude module: 'log4j'
+    }
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
