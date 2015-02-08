@@ -7,9 +7,13 @@ buildscript {
 
 apply plugin: 'spring-boot'
 
+repositories {
+    maven { url 'http://repo.spring.io/libs-milestone' }
+}
+
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-integration")
-    compile("org.springframework.integration:spring-integration-java-dsl:1.0.1.RELEASE")
+    compile("org.springframework.integration:spring-integration-kafka:1.0.0.RC1")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
