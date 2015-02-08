@@ -4,7 +4,6 @@ import com.example.cart.domain.CartItem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.integration.annotation.Gateway;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.MessagingGateway;
 
@@ -17,10 +16,9 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @MessagingGateway
+    @MessagingGateway(defaultRequestChannel = "kafkaInputChannel")
     public interface KafkaGateway {
 
-        @Gateway(requestChannel = "kafkaInputChannel")
         public void addItemToCart(CartItem item);
     }
 
