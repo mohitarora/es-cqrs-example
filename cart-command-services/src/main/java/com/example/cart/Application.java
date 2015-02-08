@@ -1,5 +1,6 @@
 package com.example.cart;
 
+import com.example.cart.domain.CartItem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -20,7 +21,7 @@ public class Application {
     public interface KafkaGateway {
 
         @Gateway(requestChannel = "kafkaInputChannel")
-        public void addItemToCart();
+        public void addItemToCart(CartItem item);
     }
 
 }
