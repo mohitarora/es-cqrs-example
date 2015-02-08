@@ -22,7 +22,7 @@
     Spring Integration Channel defined above will send the messages to Kafka-->
     <int-kafka:outbound-channel-adapter id="kafkaOutboundChannelAdapter"
                                         kafka-producer-context-ref="kafkaProducerContext"
-                                        auto-startup="false"
+                                        auto-startup="true"
                                         channel="kafkaInputChannel"
                                         message-key-expression="payload.key"
                                         topic-expression="payload.topic">
