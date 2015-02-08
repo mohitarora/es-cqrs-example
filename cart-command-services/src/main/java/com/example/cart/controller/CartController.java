@@ -15,7 +15,7 @@ public class CartController {
 
     @RequestMapping
     public void addItem() {
-        kafkaGateway.addItemToCart(new CartItem());
+        kafkaGateway.addItemToCart(new CartItem("key", "topic"));
     }
 
 }
