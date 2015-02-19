@@ -13,44 +13,48 @@
                   http://www.springframework.org/schema/task
                   http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!-- Spring Integration Channel for sending message to Kafka -->
-    <channel id="kafkaInputChannel">
+    <!-- Spring Integration Channel that will receive messages from Kafka -->
+    <channel id="kafkaInboundChannel">
         <queue/>
     </channel>
 
-    <!-- Spring Integration Channel Adapter provided by spring integration kafka library. This adapter will poll the
-    Spring Integration Channel defined above will send the messages to Kafka-->
-    <int-kafka:outbound-channel-adapter id="kafkaOutboundChannelAdapter"
-                                        kafka-producer-context-ref="kafkaProducerContext"
-                                        auto-startup="true"
-                                        channel="kafkaInputChannel"
-                                        message-key-expression="payload.key"
-                                        topic-expression="payload.topic">
-        <poller fixed-delay="1000" time-unit="MILLISECONDS" receive-timeout="0" task-executor="taskExecutor"/>
-    </int-kafka:outbound-channel-adapter>
+    <!-- Spring Integration Channel Adapter provided by spring integration kafka library. This adapter will poll Kakfa
+    and will deliver the messages to spring integration channel defined above-->
+    <int-kafka:inbound-channel-adapter id="kafkaInboundChannelAdapter"
+                                       kafka-consumer-context-ref="consumerContext"
+                                       auto-startup="true"
+                                       channel="kafkaInboundChannel">
+        <poller fixed-delay="10" time-unit="MILLISECONDS" max-messages-per-poll="5"/>
+    </int-kafka:inbound-channel-adapter>
 
     <!-- Polling Task Executor -->
     <task:executor id="taskExecutor" pool-size="5" keep-alive="120" queue-capacity="500"/>
 
-    <!-- Kafka Producer Properties -->
-    <beans:bean id="producerProperties"
+    <!-- Kafka Consumer context -->
+    <int-kafka:consumer-context id="consumerContext" consumer-timeout="4000"
+                                zookeeper-connect="zookeeperConnect" consumer-properties="consumerProperties">
+        <int-kafka:consumer-configurations>
+            <int-kafka:consumer-configuration group-id="default" max-messages="5000">
+                <int-kafka:topic-filter pattern=".*" streams="4" exclude="false"/>
+            </int-kafka:consumer-configuration>
+        </int-kafka:consumer-configurations>
+    </int-kafka:consumer-context>
+
+    <!-- Zoo Keeper Configuration-->
+    <int-kafka:zookeeper-connect id="zookeeperConnect" zk-connect="localhost:2181" zk-connection-timeout="6000"
+                                 zk-session-timeout="6000" zk-sync-time="2000"/>
+
+    <beans:bean id="consumerProperties"
                 class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <beans:property name="properties">
             <beans:props>
-                <beans:prop key="topic.metadata.refresh.interval.ms">3600000</beans:prop>
-                <beans:prop key="message.send.max.retries">5</beans:prop>
-                <beans:prop key="request.required.acks">1</beans:prop>
+                <beans:prop key="auto.offset.reset">smallest</beans:prop>
+                <beans:prop key="socket.receive.buffer.bytes">10485760</beans:prop>
+                <!-- 10M -->
+                <beans:prop key="fetch.message.max.bytes">5242880</beans:prop>
+                <beans:prop key="auto.commit.interval.ms">1000</beans:prop>
             </beans:props>
         </beans:property>
     </beans:bean>
-
-    <!-- Kafka Producer context -->
-    <int-kafka:producer-context id="kafkaProducerContext" producer-properties="producerProperties">
-        <int-kafka:producer-configurations>
-            <int-kafka:producer-configuration broker-list="localhost:9092"
-                                              topic=".*"
-                                              compression-codec="default"/>
-        </int-kafka:producer-configurations>
-    </int-kafka:producer-context>
 
 </beans:beans>
