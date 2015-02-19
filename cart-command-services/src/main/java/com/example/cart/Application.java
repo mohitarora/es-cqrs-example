@@ -16,7 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @MessagingGateway(defaultRequestChannel = "kafkaInputChannel")
+    @MessagingGateway(defaultRequestChannel = "kafkaOutBoundChannel")
     public interface KafkaGateway {
 
         public void addItemToCart(CartItem item);

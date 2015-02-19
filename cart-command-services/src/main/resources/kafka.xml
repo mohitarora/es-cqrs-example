@@ -14,7 +14,7 @@
                   http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- Spring Integration Channel for sending message to Kafka -->
-    <channel id="kafkaInputChannel">
+    <channel id="kafkaOutBoundChannel">
         <queue/>
     </channel>
 
@@ -23,7 +23,7 @@
     <int-kafka:outbound-channel-adapter id="kafkaOutboundChannelAdapter"
                                         kafka-producer-context-ref="kafkaProducerContext"
                                         auto-startup="true"
-                                        channel="kafkaInputChannel"
+                                        channel="kafkaOutBoundChannel"
                                         message-key-expression="payload.key"
                                         topic-expression="payload.topic">
         <poller fixed-delay="1000" time-unit="MILLISECONDS" receive-timeout="0" task-executor="taskExecutor"/>
