@@ -17,5 +17,6 @@ dependencies {
         exclude module: 'log4j'
     }
     compile("org.projectlombok:lombok:1.16.0")
+    compile("org.springframework.integration:spring-integration-java-dsl:1.0.1.RELEASE")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
