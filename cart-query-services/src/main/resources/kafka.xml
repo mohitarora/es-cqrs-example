@@ -3,15 +3,12 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:int-kafka="http://www.springframework.org/schema/integration/kafka"
-             xmlns:task="http://www.springframework.org/schema/task"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
                   http://www.springframework.org/schema/beans/spring-beans.xsd
                   http://www.springframework.org/schema/integration
                   http://www.springframework.org/schema/integration/spring-integration.xsd
                   http://www.springframework.org/schema/integration/kafka
-                  http://www.springframework.org/schema/integration/kafka/spring-integration-kafka.xsd
-                  http://www.springframework.org/schema/task
-                  http://www.springframework.org/schema/task/spring-task.xsd">
+                  http://www.springframework.org/schema/integration/kafka/spring-integration-kafka.xsd">
 
     <!-- Spring Integration Channel that will receive messages from Kafka -->
     <channel id="kafkaInboundChannel">
@@ -22,13 +19,10 @@
     and will deliver the messages to spring integration channel defined above-->
     <int-kafka:inbound-channel-adapter id="kafkaInboundChannelAdapter"
                                        kafka-consumer-context-ref="consumerContext"
-                                       auto-startup="true"
+                                       auto-startup="false"
                                        channel="kafkaInboundChannel">
         <poller fixed-delay="10" time-unit="MILLISECONDS" max-messages-per-poll="5"/>
     </int-kafka:inbound-channel-adapter>
-
-    <!-- Polling Task Executor -->
-    <task:executor id="taskExecutor" pool-size="5" keep-alive="120" queue-capacity="500"/>
 
     <!-- Kafka Consumer context -->
     <int-kafka:consumer-context id="consumerContext" consumer-timeout="4000"

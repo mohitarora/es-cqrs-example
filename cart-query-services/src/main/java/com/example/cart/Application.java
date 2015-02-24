@@ -14,9 +14,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    /**
-     * Spring integration flow for messages received from Kafka using Spring Integration DSL.
-     */
-
-
 }
