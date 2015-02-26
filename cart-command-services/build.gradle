@@ -7,14 +7,9 @@ buildscript {
 
 apply plugin: 'spring-boot'
 
-repositories {
-    maven { url 'http://repo.spring.io/libs-milestone' }
-}
-
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.integration:spring-integration-kafka:1.0.0.RC1") {
+    compile("org.springframework.integration:spring-integration-kafka:1.0.0.RELEASE") {
         exclude module: 'log4j'
     }
     compile("org.projectlombok:lombok:1.16.0")
