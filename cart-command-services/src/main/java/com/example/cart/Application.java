@@ -19,7 +19,7 @@ public class Application {
     @MessagingGateway(defaultRequestChannel = "kafkaOutBoundChannel")
     public interface KafkaGateway {
 
-        public void addItemToCart(CartItem item);
+        void addItemToCart(CartItem item);
     }
 
 }
